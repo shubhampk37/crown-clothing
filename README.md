@@ -6,6 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## `This project uses YARN`
+
+### `NPM content for documentation only`
 ### `npm start`
 
 Runs the app in the development mode.\
