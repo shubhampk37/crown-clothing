@@ -17,7 +17,7 @@ const addCartItems = (cartItems, productToAdd)=>{
             cartItem.id === productToAdd.id ? {...cartItem, quantity: cartItem.quantity+1}: cartItem
         )
     }
-
+    console.log('ADDED ITEM:',[...cartItems, {...productToAdd, quantity: 1}])
     return [...cartItems, {...productToAdd, quantity: 1}]
     //return new array with modified cartItems
 
@@ -47,8 +47,8 @@ const clearCartItems = (cartItems, itemToClear)=>{
 export const setIsCartOpen = (bool)=> createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, bool)
 
 export const addItemToCart = (cartItems, productToAdd)=>{
-    const newCartItems = (addCartItems(cartItems, productToAdd))
-    createAction(CART_ACTION_TYPES.SET_CART_ITEMS ,newCartItems)
+    const newCartItems = addCartItems(cartItems, productToAdd)
+    return createAction(CART_ACTION_TYPES.SET_CART_ITEMS ,newCartItems)
 }
 export const removeItemFromCart = (cartItems, productToRemove)=>{
     const newCartItems = removeCartItems(cartItems, productToRemove)
