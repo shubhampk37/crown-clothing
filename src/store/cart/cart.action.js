@@ -3,9 +3,9 @@ import { CART_ACTION_TYPES } from "./cart.types"
 
 ////////////
 const addCartItems = (cartItems, productToAdd)=>{
-    console.log(cartItems)
-    console.log('ITEM EXISTS')
-    console.log(productToAdd)
+    // console.log(cartItems)
+    // console.log('ITEM EXISTS')
+    // console.log(productToAdd)
     //find if the cartItems contains the product to add
     const existingCartItem = cartItems.find(
         (cartItem)=>cartItem.id === productToAdd.id

@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { signInAuthUserWithEmailAndPassword, signInWithGooglePopup , createUserDocumentFromAuth} from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import Button, {BUTTON_TYPE_CLASSES} from "../button/button.component";
-import './sign-in-form.styles.scss';
+import {SignInContainer, ButtonsContainer} from './sign-in-form.styles.jsx';
+import { useDispatch } from "react-redux";
+import { googleSignInStart, emailSignInStart } from "../../store/user/user.action";
 const defaultFormFields = {
     email:'',
     password:'',
 }
 const SignInForm = ()=>{
+    const dispatch = useDispatch()
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
@@ -21,7 +23,7 @@ const SignInForm = ()=>{
     const handleSubmit = async (event)=>{
         event.preventDefault();
         try{
-           const {user} = await signInAuthUserWithEmailAndPassword(email,password);
+           dispatch(emailSignInStart(email,password));
            //setCurrentUser(user);
            resetFormFields();
         }catch(error){
@@ -38,23 +40,21 @@ const SignInForm = ()=>{
             
     }
     const signInWithGoogle =async ()=>{
-        await signInWithGooglePopup();
-        //setCurrentUser(user);
-        
+        dispatch(googleSignInStart())
     }
     return(
-        <div className="sign-up-container">
+        <SignInContainer>
             <h2>Already have an account?</h2>
             <span>Sign in with email & password</span>
             <form onSubmit={handleSubmit} autoComplete='off' >
                 <FormInput label='Email' required type='email' onChange={handleChange} autoComplete='off' value={email} name='email' />  
                 <FormInput label='Password' required type='password' onChange={handleChange} autoComplete='off' value={password} name='password' />
-                <div className="buttons-container">
+                <ButtonsContainer>
                     <Button type="submit">SIGN IN</Button>
                     <Button type='button' onClick={signInWithGoogle} buttonType={BUTTON_TYPE_CLASSES.google}>GOOGLE SIGN IN</Button>
-                </div>
+                </ButtonsContainer>
             </form>
-        </div>
+        </SignInContainer>
     )
 }
 export default SignInForm;

@@ -6,20 +6,21 @@ import SignIn from './routes/authentication/authentication.component';
 import Authentication from './routes/authentication/authentication.component';
 import Shop from './routes/shop/shop.component';
 import Checkout from './routes/checkout/checkout.component';
-import { createUserDocumentFromAuth, onAuthStateChangedListener, signOutUser } from "./utils/firebase/firebase.utils";
-import { setCurrentUser } from './store/user/user.action';
+import { createUserDocumentFromAuth, getCurrentUser, onAuthStateChangedListener, signOutUser } from "./utils/firebase/firebase.utils";
+import { checkUserSession } from './store/user/user.action';
 import {useDispatch} from 'react-redux'
 
 const App = ()=>{
   const dispatch = useDispatch();
   useEffect(()=>{
-    const unscubscribe = onAuthStateChangedListener((user)=>{
-     if(user){
-         createUserDocumentFromAuth(user);
-     }
-         dispatch(setCurrentUser(user));
-     })
-     return unscubscribe;
+    // const unscubscribe = onAuthStateChangedListener((user)=>{
+    //  if(user){
+    //      createUserDocumentFromAuth(user);
+    //  }
+    //      dispatch(setCurrentUser(user));
+    //  })
+    //  return unscubscribe;
+    dispatch(checkUserSession())
  }, [])
  
 
